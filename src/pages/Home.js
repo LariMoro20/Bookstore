@@ -7,7 +7,6 @@ export default function Home(props) {
     const [bookInput, setBookInput] = React.useState('');
     const [bookFav, setBookFav] = React.useState([]);
     const history = useHistory();
-    let hasbook = false
     function getBook(idbook) {
         if (bookInput.length > 0) {
             fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${idbook}`)
@@ -17,11 +16,9 @@ export default function Home(props) {
                 .then((respComplete) => {
                     if (respComplete.totalItems > 0) {
                         setBooks(respComplete.items);
-                        hasbook = true
                     }
                     else {
                         setBooks([]);
-                        hasbook = false
                     }
                     console.log(respComplete)
                 }).catch(() => {
