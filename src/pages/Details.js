@@ -5,17 +5,15 @@ function Details(props) {
 
 
     React.useEffect(() => {
-        const ism = props.match.params.id
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${ism}`)
+
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${props.match.params.id}`)
             .then((res) => {
                 return res.json();
             })
             .then((respComplete) => {
                 if (respComplete.totalItems > 0)
                     setBooks(respComplete.items);
-                console.log(respComplete)
             }).catch(() => {
-                console.log('Houve algum erro')
             })
     }, []);
 
