@@ -2,7 +2,7 @@ import '../App.css';
 import { useHistory } from "react-router-dom";
 import React from "react";
 
-export default function Home(props) {
+export default function Home({ handleFavAdd, handleFavDelete, favorites }) {
     const [books, setBooks] = React.useState([]);
     const [bookInput, setBookInput] = React.useState('');
     const [bookFav, setBookFav] = React.useState([]);
@@ -28,17 +28,15 @@ export default function Home(props) {
 
         }
     }
-    const handleFavDelete = (idbook) => {
-        const newBook = bookFav.filter(book => book.id !== idbook)
-        setBookFav(newBook);
-    }
-    const handleFavAdd = (id, title) => {
-        const newBook = [...bookFav, {
-            id: id,
-            title: title
-        }];
-        setBookFav(newBook);
-    }
+
+    const removeFavorite = (id) => {
+        handleFavDelete(id);
+    };
+
+    const addFavorite = (id, title) => {
+        handleFavAdd(id, title);
+    };
+
     return (
         <div className="row">
             <div className="books_form row">
@@ -94,7 +92,7 @@ export default function Home(props) {
                                 </div>
                                 <div className='col-md-12 text-center'>
                                     <button onClick={() => history.push(`/details/${book.volumeInfo.industryIdentifiers[0].identifier}`)}>Detalhes</button>
-                                    <button onClick={() => handleFavAdd(book.volumeInfo.industryIdentifiers[0].identifier, book.volumeInfo.title)}>Favorito</button>
+                                    <button onClick={() => addFavorite(book.volumeInfo.industryIdentifiers[0].identifier, book.volumeInfo.title)}>Favorito</button>
                                 </div>
                             </div>
                         );
@@ -105,12 +103,12 @@ export default function Home(props) {
                     <div className='col-md-12'>
                         <h3>Livros favoritos</h3>
                     </div>
-                    {bookFav.map((book) => {
+                    {favorites.map((book) => {
                         return (
                             <div className='col-md-6' key={book.id}>
                                 <p><b>Nome:</b>{book.title}<br />
                                     <b>Id:</b>{book.id}<br />
-                                    <button onClick={() => handleFavDelete(book.id)}>Remover Favorito</button>
+                                    <button onClick={() => removeFavorite(book.id)}>Remover Favorito</button>
                                 </p>
                             </div>
                         );
