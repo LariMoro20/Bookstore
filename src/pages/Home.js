@@ -91,7 +91,7 @@ export default function Home({ handleFavAdd, handleFavDelete, favorites }) {
                                 </div>
                                 <div className='col-md-12 text-center'>
                                     <button onClick={() => history.push(`/details/${book.volumeInfo.industryIdentifiers[0].identifier}`)}>Detalhes</button>
-                                    <button onClick={() => addFavorite(book.id)}>Favorito</button>
+                                    <button onClick={() => addFavorite(book.id, book.volumeInfo.title)}>Favorito</button>
                                 </div>
                             </div>
                         );
