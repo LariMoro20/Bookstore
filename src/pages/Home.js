@@ -5,7 +5,6 @@ import React from "react";
 export default function Home({ handleFavAdd, handleFavDelete, favorites }) {
     const [books, setBooks] = React.useState([]);
     const [bookInput, setBookInput] = React.useState('');
-    const [bookFav, setBookFav] = React.useState([]);
     const history = useHistory();
     function getBook(idbook) {
         if (bookInput.length > 0) {
